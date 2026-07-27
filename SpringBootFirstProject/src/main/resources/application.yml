@@ -1,0 +1,20 @@
+#port :: 8080
+server:
+  port: 80
+
+#MVC
+spring:
+  mvc:
+   view:
+    prefix: /WEB-INF/views
+    suffix: .jsp
+  datasource:
+   url: jdbc:oracle:thin:@localhost:1521:XE
+   username: hr
+   password: happy
+   driver-class-name: oracle.jdbc.driver.OracleDriver
+
+#mybatis
+mybatis:
+  type-aliases-package: com.sist.web.vo
+  mapper-locations: mybatis/mapper/*.xml
