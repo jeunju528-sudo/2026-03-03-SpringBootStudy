@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.sist.web.entity.BoardEntity;
 import com.sist.web.repository.BoardRepository;
+import com.sist.web.vo.BoardDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +22,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardEntity> boardListData(int start) {
+	public List<BoardDTO> boardListData(int start) {
 		return respository.boardListData(start);
 	}
 
