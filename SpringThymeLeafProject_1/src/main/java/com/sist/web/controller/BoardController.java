@@ -89,7 +89,7 @@ public class BoardController {
 			service.boardDelete(vo);
 		}
 		model.addAttribute("res", res);
-		return "/board/delete_ok";
+		return "board/delete_ok";
 	}
 	
 	@GetMapping("update")
