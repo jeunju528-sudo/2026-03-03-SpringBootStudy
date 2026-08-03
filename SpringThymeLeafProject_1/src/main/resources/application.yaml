@@ -1,0 +1,38 @@
+# 서버 포트 설정 (지정하지 않을 경우 기본값: 8080)
+server:
+  port: 80
+
+# Spring 및 JPA, Thymeleaf, DataSource 설정
+spring:
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+    prefix: classpath:templates/
+    suffix: .html
+    mode: HTML
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: hr
+    password: happy
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+  jpa:
+    database: oracle
+    database-platform: org.hibernate.dialect.OracleDialect
+    properties:
+      hibernate:
+        format-sql: true
+        use-sql-comments: true
+    show-sql: true
+    #dialect: org.hibernate.dialect.OracleDialect
+
+
+# MyBatis 설정
+mybatis:
+  type-aliases-package: com.sist.web.vo
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+# 로깅 설정
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
