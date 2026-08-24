@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script src="https://unpkg.com/vue@3.3.4/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue-demi"></script>
+<script src="https://unpkg.com/pinia@2.1.7/dist/pinia.iife.prod.js"></script>
+<style type="text/css">
+.container {
+	margin-top: 50px;
+}
+.row {
+	margin: 0px auto;
+	width: 600px;
+}
+.h3 {
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h3>1:1 채팅</h3>
+			<table class="table">
+				<tbody>
+					<tr>
+						<td>
+							<input type="text" class="input-sm" size="20" placeholder="본인 아이디" v-model="store.userId" ref="userId">
+							<button class="btn-sm btn-info" @click="store.connect()">접속</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="text" class="input-sm" size="20" placeholder="상대방 ID" v-model="store.receiver" ref="receiver">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="text" class="input-sm" size="50" placeholder="보낼 메세지" v-model="store.msg" ref="msg">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button class="btn-sm btn-danger" @click="store.send()">전송</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<ul>
+								<li v-for="(m, index) in store.message" :key="index">
+									{{m.sender}}:{{m.message}}
+								</li>
+							</ul>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<script src="/js/chatStore.js"></script>
+	<script>
+		const {ref, createApp } = Vue
+		const {createPinia} = Pinia
+		const app = createApp({
+			setup(){
+				const store = useChatStore()
+				
+				return {
+					store
+				}
+			}
+		})
+		
+		app.use(createPinia()).mount('.container')
+	</script>
+</body>
+</html>
