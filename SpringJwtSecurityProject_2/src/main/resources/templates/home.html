@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html
+ xmlns:th="http://www.thymeleaf.org"
+ xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<!-- 
+   <%@ taglib prefix="sec"
+       uri="http://www.springframework.org/security/tags" %>
+ -->
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style type="text/css">
+.container{
+   margin-top: 50px;
+}
+.row {
+   width: 350px;
+   margin: 0px auto;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <h3 class="text-center">Home</h3>
+      <table class="table">
+        <tbody>
+          <!-- 
+               <sec:authorize access="isAuthenticated()">
+           -->
+          <tr sec:authorize="isAuthenticated()">
+            <td class="text-center">
+             <!-- 
+                <span sec:authentication="principal.username"></span>
+                <span sec:authentication="name"></span>
+                username = ID
+                
+                <li sec:authorize="hasRole('ADMIN')">
+                  관리자
+                </li>
+                <li sec:authorize="hasRole('USER')">
+                  사용자
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                  마이페이지 
+                </li>
+                <li sec:authorize="isAnonymous()">
+                  로그인
+                </li>
+              -->
+             로그인 사용자: <span sec:authentication="name"></span> 
+            </td>
+          </tr>
+          <!-- Admin인 경우  -->
+          <tr sec:authorize="hasRole('ADMIN')">
+            <td class="text-center">
+              <a href="/admin"
+               class="btn btn-sm btn-primary">관리자 페이지</a>
+            </td>
+          </tr>
+          <!-- User인 경우 -->
+          <tr sec:authorize="isAuthenticated()">
+            <td class="text-center">
+              <a href="/user"
+               class="btn btn-sm btn-info">사용자 페이지</a>
+            </td>
+          </tr>
+          <!-- 로그아웃  -->
+          <tr sec:authorize="isAuthenticated()">
+            <td class="text-center">
+              <form method="post" action="/logout">
+                <button type=submit
+                  class="btn btn-sm btn-danger">로그아웃</button>
+              </form>
+            </td>
+          </tr>
+          <!-- 비로그인 
+            <c:if test="${sessionScope.id==null}">
+                sec:authorize="isAnonymous()"
+            <c:if test="${sessionScope.id!=null}">
+                sec:authorize="isAuthenticated()"
+          -->
+          <tr sec:authorize="isAnonymous()">
+            <td class="text-center">
+              <a href="/login" class="btn btn-sm btn-success">로그인</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
